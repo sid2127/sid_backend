@@ -85,15 +85,15 @@ userSchema.methods.generateAccessToken = function(){
 }
 
 
-userSchema.methods.generateAccessToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     jsonwebtoken.sign({
         _id: this._id,
     },
 
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
 
     {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRY
     }
 )
 }
