@@ -3,10 +3,13 @@ import dotenv from "dotenv"
 // import mongoose from "mongoose";
 // import { DB_NAME } from "./constants";
 import connnect_db from "./db/index.js";
+import { app } from "./app.js";
 
 dotenv.config({
     path: './env'
 })
+
+
 
 
 connnect_db()
