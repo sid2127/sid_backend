@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
 
@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
         
     }
     
-} ,{timestamp : true})
+} ,{timestamps : true})
 
 
 userSchema.pre("save" , async function(next){            //pre is the middleware method that helps to do work before exporting the db. sava is the middleware that helps whenever we are saving data we have to do this function.
@@ -69,7 +69,7 @@ userSchema.methods.isPasswordCorrect = async function(password){           //we 
 }
 
 userSchema.methods.generateAccessToken = function(){
-    jsonwebtoken.sign({
+    return jwt.sign({
         _id: this._id,
         email: this.email,
         username: this.username,
@@ -86,7 +86,7 @@ userSchema.methods.generateAccessToken = function(){
 
 
 userSchema.methods.generateRefreshToken = function(){
-    jsonwebtoken.sign({
+    return jwt.sign({
         _id: this._id,
     },
 
