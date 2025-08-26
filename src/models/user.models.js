@@ -58,10 +58,12 @@ const userSchema = new mongoose.Schema({
 
 
 userSchema.pre("save" , async function(next){            //pre is the middleware method that helps to do work before exporting the db. sava is the middleware that helps whenever we are saving data we have to do this function.
-    if(this.isModified("password")){ 
-        this.password = await bcrypt.hash(this.password , 10);     //hashes the password by 10 rounds
-        next();
+    if(!this.isModified("password")){ 
+        return next();
     }
+
+    this.password = await bcrypt.hash(this.password , 10);     //hashes the password by 10 rounds
+    next();
 })
 
 userSchema.methods.isPasswordCorrect = async function(password){           //we can create our own methods using methods.method name , to do any work.
