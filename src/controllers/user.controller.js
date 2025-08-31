@@ -261,7 +261,7 @@ const ChangePassword = asynchandler(async (req , res) =>{
     const {oldPassword , NewPassword} = req.body;
 
     const user = await User.findById(req.user);
-    const checkPassword = await isPasswordCorrect(oldPassword);
+    const checkPassword = await user.isPasswordCorrect(oldPassword);
 
     if(!checkPassword){
         throw new ApiError(401 , "wrong password entered");
@@ -302,9 +302,9 @@ const getCurrentUser = asynchandler( async (req , res) =>{
 
 const updateAccountDetail = asynchandler( async (req , res) =>{
 
-    const [Fullname , Email] = req.body;
+    const {fullname , email} = req.body;
 
-    if(!(Fullname || Email)){     //we want to update both let suppose , if any one , we can take && operator
+    if(!(fullname || email)){     //we want to update both let suppose , if any one , we can take && operator
         throw new ApiError(401 , "fullname or email not entered"); 
     }
 
@@ -312,8 +312,8 @@ const updateAccountDetail = asynchandler( async (req , res) =>{
         req.user._id,
         {
             $set: {
-                fullname: Fullname,
-                email : Email
+                fullname: fullname,
+                email : email
             }
         },
         {
@@ -421,7 +421,7 @@ const getUserChannelProfile = asynchandler( async (req , res) =>{
     const {username} = req.params;
 
     if(!username?.trim()){
-        throw new ApiError(400 , "bot able to fetch user");
+        throw new ApiError(400 , "not able to fetch user");
     }
 
     const channel = await User.aggregate([
