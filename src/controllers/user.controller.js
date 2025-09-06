@@ -108,7 +108,6 @@ const registerUser = asynchandler( async (req, res) => {
     return res.status(201).json(
         new ApiResponse(200, createdUser, "User registered Successfully")
     )
-
 } )
 
 
@@ -304,7 +303,7 @@ const updateAccountDetail = asynchandler( async (req , res) =>{
 
     const {fullname , email} = req.body;
 
-    if(!(fullname || email)){     //we want to update both let suppose , if any one , we can take && operator
+    if(!(fullname || email)){     //we want to update any one or both suppose , if both necessary than , we can take && operator
         throw new ApiError(401 , "fullname or email not entered"); 
     }
 
