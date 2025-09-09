@@ -21,4 +21,4 @@ const LikeSchema = new mongoose.Schema(
     },{timestamps: true}
 )
 
-export const Comment = mongoose.model("Comment" , commentSchema)
+export const Like = mongoose.model("Like" , LikeSchema)
